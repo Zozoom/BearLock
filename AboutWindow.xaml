@@ -1,0 +1,42 @@
+﻿<Window x:Class="PassBear.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:BearLock"
+        Title="{Binding Path=[AppTitle], Source={StaticResource Localization}}" 
+        Height="500" 
+        Width="500" 
+        ResizeMode="NoResize" 
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Icon="appicon.ico"
+        WindowStartupLocation="CenterScreen">
+    <Border BorderBrush="#455A64" BorderThickness="2" CornerRadius="10" Background="#FFFFFF" Padding="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Background="#4DB6AC" CornerRadius="8" Grid.Row="0" Padding="5">
+                <DockPanel>
+                    <Image Source="appicon.ico" Height="60" Width="60" Margin="20,0,5,0" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Path=[AppTitle], Source={StaticResource Localization}}" FontSize="22" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center" />
+                </DockPanel>
+            </Border>
+            <ScrollViewer Grid.Row="1" Margin="0,10,0,0" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Name="txtDeveloper" Text="{Binding Path=[DevelopedBy], Source={StaticResource Localization}}" FontWeight="Bold" FontSize="14" TextAlignment="Center" Foreground="#455A64" Margin="0,10"/>
+                    <TextBlock Name="txtEmail" Text="{Binding Path=[ContactWith], Source={StaticResource Localization}}" FontWeight="Bold" FontSize="12" TextAlignment="Center" Foreground="#455A64" Margin="0,10"/>
+                    <GroupBox Header="{Binding Path=[License], Source={StaticResource Localization}}" Foreground="#455A64" Margin="0,10,0,0" Padding="10">
+                        <TextBlock Name="txtLicense" Text="{Binding Path=[LicenseText], Source={StaticResource Localization}}" TextWrapping="Wrap" Foreground="#455A64"/>
+                    </GroupBox>
+                    <GroupBox Header="{Binding Path=[DataPrivacy], Source={StaticResource Localization}}" Foreground="#455A64" Margin="0,10,0,0" Padding="10">
+                        <TextBlock Name="txtPrivacy" Text="{Binding Path=[DataPrivacyText], Source={StaticResource Localization}}" TextWrapping="Wrap" Foreground="#455A64"/>
+                    </GroupBox>
+                    <TextBlock Name="txtCopyright" Text="© 2024 BearLock. All rights reserved." FontSize="12" TextAlignment="Center" Foreground="#455A64" Margin="0,10"/>
+                    <Button Content="{Binding Path=[CloseButton], Source={StaticResource Localization}}" Width="120" Height="40" HorizontalAlignment="Center" Background="#81C784" Foreground="#FFFFFF" Click="CloseButton_Click" Margin="10"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,103 @@
+﻿<Window x:Class="PassBear.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:BearLock"
+        Title="{Binding Path=[AppTitle], Source={StaticResource Localization}}" 
+        Height="600" 
+        Width="1200"
+        ResizeMode="NoResize" 
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Icon="appicon.ico"
+        WindowStartupLocation="CenterScreen">
+    <Border BorderBrush="#455A64" BorderThickness="2" CornerRadius="10" Background="#FFFFFF" Padding="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Background="#4DB6AC" CornerRadius="10" Height="50" Grid.Row="0">
+                <DockPanel>
+                    <Image Source="appicon.ico" Height="60" Width="60" Margin="0,5,0,0" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Path=[AppTitle], Source={StaticResource Localization}}" FontSize="20" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center" DockPanel.Dock="Left"/>
+                    <TextBlock Text="{Binding Path=[AppVersion], Source={StaticResource Localization}}" FontSize="12" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center" DockPanel.Dock="Right" TextAlignment="Right" Padding="0,0,10,0"/>
+                    
+                    <ComboBox Style="{StaticResource LanguageComboBoxStyle}" SelectionChanged="OnLanguageChanged">
+                        <ComboBoxItem Content="{Binding Path=[LocalLangEn], Source={StaticResource Localization}}" Tag="en-US" IsSelected="True" />
+                        <ComboBoxItem Content="{Binding Path=[LocalLangHu], Source={StaticResource Localization}}" Tag="hu-HU" />
+                    </ComboBox>
+                    
+                </DockPanel>
+            </Border>
+            <Menu Grid.Row="1">
+                <MenuItem Header="{Binding Path=[AppSettings], Source={StaticResource Localization}}">
+                    <MenuItem Header="{Binding Path=[PassJsonFilePath], Source={StaticResource Localization}}" Click="ConfigureFilePath_Click" />
+                    <Separator />
+                    <MenuItem Header="{Binding Path=[WindowStart], Source={StaticResource Localization}}" Click="ToggleStartWithWindows_Click" IsCheckable="True" />
+                    <MenuItem Header="{Binding Path=[Minimalized], Source={StaticResource Localization}}" Click="ToggleMinimizedToTray_Click" IsCheckable="True" />
+                </MenuItem>
+                <MenuItem Header="{Binding Path=[AppHelp], Source={StaticResource Localization}}">
+                    <MenuItem Header="{Binding Path=[About], Source={StaticResource Localization}}" Click="ShowAbout_Click" />
+                </MenuItem>
+            </Menu>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Background="#FFFFFF" Margin="10" ClipToBounds="True">
+                    <Border Background="#FFFFFF" CornerRadius="10" BorderBrush="#455A64" BorderThickness="1" Padding="10">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=[CreateNewPassTitle], Source={StaticResource Localization}}" FontWeight="Bold" FontSize="18" Margin="0,0,0,15" Foreground="#455A64"/>
+                            <TextBox Name="txtAppName" Text="{Binding Path=[ApplicationName], Source={StaticResource Localization}, Mode=OneWay}" Tag="Application Name" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <TextBox Name="txtSiteURL" Text="{Binding Path=[SiteURL], Source={StaticResource Localization}, Mode=OneWay}" Tag="Site URL (Optional)" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <TextBox Name="txtPassword" Text="{Binding Path=[Password], Source={StaticResource Localization}, Mode=OneWay}" Tag="Password" Margin="0,5" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+                            <GroupBox Header="{Binding Path=[Options], Source={StaticResource Localization}}" Margin="0,10,0,10" Foreground="#455A64">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                                        <TextBlock Text="{Binding Path=[Length], Source={StaticResource Localization}}" VerticalAlignment="Center" Margin="0,0,5,0" Width="50" Foreground="#455A64"/>
+                                        <TextBox Name="txtPasswordLength" Width="50" Text="25"/>
+                                    </StackPanel>
+                                    <CheckBox Name="chkCapitals" Content="{Binding Path=[IncludeCapitals], Source={StaticResource Localization}}" Margin="0,5" IsChecked="True" Foreground="#455A64"/>
+                                    <CheckBox Name="chkSpecialChars" Content="{Binding Path=[SpecialCharacters], Source={StaticResource Localization}}" Margin="0,5" IsChecked="True" Foreground="#455A64"/>
+                                    <CheckBox Name="chkNumbers" Content="{Binding Path=[IncludeNumbers], Source={StaticResource Localization}}" Margin="0,5" IsChecked="True" Foreground="#455A64"/>
+                                </StackPanel>
+                            </GroupBox>
+                            <Button Content="{Binding Path=[GeneratePassword], Source={StaticResource Localization}}" Click="GeneratePassword_Click" Background="#4DB6AC" Style="{StaticResource RoundedButtonStyle}"/>
+                            <Button Content="{Binding Path=[SavePassword], Source={StaticResource Localization}}" Click="SavePassword_Click" Background="#81C784" Style="{StaticResource RoundedButtonStyle}"/>
+                            <Button Content="{Binding Path=[Exit], Source={StaticResource Localization}}" Click="ExitButton_Click" Background="DarkRed" Style="{StaticResource RoundedButtonStyle}"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                <Grid Grid.Column="1" Background="#FFFFFF" Margin="10" ClipToBounds="True">
+                    <Border Background="#FFFFFF" CornerRadius="10" BorderBrush="#455A64" BorderThickness="1" Padding="10">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=[StoredPasswords], Source={StaticResource Localization}}" FontWeight="Bold" FontSize="18" Margin="0,0,0,5" Foreground="#455A64"/>
+                            <DataGrid Name="dgPasswordList" AutoGenerateColumns="False" Margin="0,0,0,0" IsReadOnly="True"
+                                      HeadersVisibility="Column" GridLinesVisibility="Horizontal" 
+                                      ColumnHeaderHeight="25" RowHeight="35" Foreground="#455A64"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="{Binding Path=[PassApplicationName], Source={StaticResource Localization}}" Binding="{Binding AppName}" Width="200"/>
+                                    <DataGridTextColumn Header="{Binding Path=[PassSiteUrl], Source={StaticResource Localization}}" Binding="{Binding SiteURL}" Width="250"/>
+                                    <DataGridTextColumn Header="{Binding Path=[PassPassword], Source={StaticResource Localization}}" Binding="{Binding DisplayPassword}" Width="250"/>
+                                    <DataGridTextColumn Header="{Binding Path=[PassCreationTime], Source={StaticResource Localization}}" Binding="{Binding CreationTime}" Width="180"/>
+                                </DataGrid.Columns>
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="{Binding Path=[SideMenuShowPass], Source={StaticResource Localization}}" Click="RevealPassword_Click"/>
+                                        <MenuItem Header="{Binding Path=[SideMenuCopyPassword], Source={StaticResource Localization}}" Click="CopyPasswordToClipboard_Click"/>
+                                        <Separator/>
+                                        <MenuItem Header="{Binding Path=[SideMenuDeletePassword], Source={StaticResource Localization}}" Click="DeletePassword_Click"/>
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

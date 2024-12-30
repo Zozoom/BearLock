@@ -1,0 +1,14 @@
+{
+    "developer": {
+        "name": "Zoltan Kiss",
+        "email": "info@barksidestudio.com",
+        "website": "https://barksidestudio.com"
+    },
+    "application": {
+        "name": "BearLock",
+        "version": "1.0.0",
+        "license": "BearLock is free to use for personal and non-commercial purposes. Modification or redistribution is not permitted without written consent from the developer.",
+        "privacy": "All data managed by BearLock is stored locally on your computer. There is no cloud storage or synchronization involved. Your data is only accessible to you."
+    },
+    "copyright": "© 2024 BearLock. All rights reserved."
+}
