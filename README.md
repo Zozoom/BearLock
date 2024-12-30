@@ -2,7 +2,7 @@
 
 **BearLock** is a secure, offline-first password manager designed to store and manage your passwords locally on your device. With BearLock, your data remains private, encrypted, and accessible only to you—without reliance on cloud storage or third-party servers.
 
-<Image Source="preview.png" />
+<Image Source="https://github.com/Zozoom/BearLock/blob/main/preview.png?raw=true" />
 
 ---
 
